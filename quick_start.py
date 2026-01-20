@@ -35,7 +35,7 @@ def main():
     # 构建或加载索引                                                                                                                                                                                                                                                                                                                                                                                                                                                    
     print("\n步骤1: 构建/加载索引")
     print("-"*80)
-    rag_system.create_index(force_rebuild=True, build_keyword_index=True)
+    rag_system.create_index(force_rebuild=True, build_keyword_index=True, reextract_doc_meta=True)
     
     # 创建查询引擎
     print("\n步骤2: 创建查询引擎")

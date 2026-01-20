@@ -146,6 +146,7 @@ def process_chunk_sets(input_root: Path, output_root: Path):
 
         dst_dir.mkdir(parents=True, exist_ok=True)
         copy_imgs(dirs, imgs_dst)
+        doc_path = dst_dir / "doc.md"
         save_doc(dst_dir, "doc.md", merged_issue)
 
         # 再按文章切分并保存
@@ -156,6 +157,13 @@ def process_chunk_sets(input_root: Path, output_root: Path):
             slug = make_unique_slug(base_slug, used_slugs)
             fname = f"{slug}.md"
             save_doc(dst_dir, fname, content)
+
+        # 抽取完文章后删除整刊 doc.md，避免后续索引重复收录
+        try:
+            if doc_path.exists():
+                doc_path.unlink()
+        except Exception:
+            pass
 
 
 def collect_numbered_docs(folder: Path) -> List[Path]:
